@@ -12,9 +12,16 @@ repositories {
 	mavenCentral()
 }
 
+val kord_version: String by project
+val ktor_version: String by project
+
 dependencies {
 	implementation(kotlin("stdlib"))
-	implementation("dev.kord:kord-core:0.8.0-M14")
+	implementation("dev.kord:kord-core:$kord_version")
+	implementation("io.ktor:ktor-client-core:$ktor_version")
+	implementation("io.ktor:ktor-client-cio:$ktor_version")
+	implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+	implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 	implementation("org.slf4j:slf4j-api:1.7.36")
 	implementation("org.slf4j:slf4j-simple:1.7.36")
 }
