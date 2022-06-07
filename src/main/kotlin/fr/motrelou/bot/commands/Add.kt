@@ -11,6 +11,5 @@ class Add(kord: Kord): RegisterCommand(kord, Command(
 		Parameter(ParameterType.String, "definition", "Définition du mot", true)
 	)
 ), {
-	println("ADD")
-	interaction.respondPublic { content = "ADD" }
+	interaction.respondPublic { content = interaction.command.strings["mot"] }
 })
