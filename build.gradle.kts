@@ -29,5 +29,5 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-	mainClass.set("fr.imacaron.motrelou.bot.MainKt")
+	mainClass.set("fr.motrelou.bot.MainKt")
 }
