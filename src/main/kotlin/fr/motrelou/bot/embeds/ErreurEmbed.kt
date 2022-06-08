@@ -21,3 +21,5 @@ fun MessageCreateBuilder.embedErreur(message: String, user: Member, description:
 		}
 	}
 }
+
+fun MessageCreateBuilder.embedServerError(user: Member) = embedErreur("Critique", user, "Erreur serveur", Color(255, 0, 0))

@@ -23,9 +23,11 @@ suspend fun main() {
 	val list = mutableMapOf<Snowflake, Snowflake>()
 	val api = API()
 	val add = Add(kord, api)
+	val get = Get(kord, api)
 
 	guilds.forEach {
 		add.register(it.id)
+		get.register(it.id)
 	}
 
 	kord.login {
