@@ -5,6 +5,7 @@ import dev.kord.core.Kord
 import dev.kord.core.entity.Guild
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
+import fr.motrelou.bot.api.API
 import fr.motrelou.bot.commands.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
@@ -20,8 +21,8 @@ suspend fun main() {
 	}
 
 	val list = mutableMapOf<Snowflake, Snowflake>()
-
-	val add = Add(kord)
+	val api = API()
+	val add = Add(kord, api)
 
 	guilds.forEach {
 		add.register(it.id)
