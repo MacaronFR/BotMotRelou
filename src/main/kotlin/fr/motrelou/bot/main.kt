@@ -24,10 +24,12 @@ suspend fun main() {
 	val api = API()
 	val add = Add(kord, api)
 	val get = Get(kord, api)
+	val random = Random(kord, api)
 
 	guilds.forEach {
 		add.register(it.id)
 		get.register(it.id)
+		random.register(it.id)
 	}
 
 	kord.login {
