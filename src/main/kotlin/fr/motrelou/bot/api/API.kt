@@ -17,7 +17,7 @@ class API {
 		val domain: String = System.getenv("BASE_URL")
 	}
 
-	suspend fun mot(): List<MotApi> = request("/mot")
+	suspend fun mot(page: Long): List<MotApi> = request("/mot?page=$page")
 
 	suspend fun mot(mot: String): MotApi = request("/mot/$mot")
 
@@ -39,7 +39,6 @@ class API {
 		if (path[0] != '/') {
 			path.padStart(1, '/')
 		}
-		println(path)
 		val resp = ktor.request("$domain$path") {
 			this.method = method
 		}
