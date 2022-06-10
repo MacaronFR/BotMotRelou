@@ -1,13 +1,13 @@
 package fr.motrelou.bot.commands
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.core.Kord
 import dev.kord.core.entity.application.GuildChatInputCommand
 import dev.kord.core.event.interaction.GuildChatInputCommandInteractionCreateEvent
 import dev.kord.core.on
 import dev.kord.rest.builder.interaction.ChatInputCreateBuilder
 import dev.kord.rest.builder.interaction.int
 import dev.kord.rest.builder.interaction.string
+import fr.motrelou.bot.kord
 
 enum class ParameterType{
 	String,
@@ -27,7 +27,7 @@ data class Command(
 	val param: List<Parameter> = listOf()
 )
 
-open class RegisterCommand(private val kord: Kord, private val command: Command, private val handler: suspend GuildChatInputCommandInteractionCreateEvent.() -> Unit) {
+open class RegisterCommand(private val command: Command, private val handler: suspend GuildChatInputCommandInteractionCreateEvent.() -> Unit) {
 
 	private val guildCommand: MutableMap<Snowflake, GuildChatInputCommand> = mutableMapOf()
 

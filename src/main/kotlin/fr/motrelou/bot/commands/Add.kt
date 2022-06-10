@@ -1,7 +1,6 @@
 package fr.motrelou.bot.commands
 
 import dev.kord.common.Color
-import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.respondPublic
 import fr.motrelou.bot.api.API
 import fr.motrelou.bot.embeds.embedErreur
@@ -9,8 +8,9 @@ import fr.motrelou.bot.embeds.embedMot
 import fr.motrelou.bot.embeds.embedServerError
 import fr.motrelou.bot.excpetions.APIException
 import fr.motrelou.bot.getUserInGuild
+import fr.motrelou.bot.warning
 
-class Add(kord: Kord, private val api: API) : RegisterCommand(kord, Command(
+class Add(private val api: API) : RegisterCommand(Command(
 	"add",
 	"Ajouter un mot",
 	listOf(
@@ -26,12 +26,12 @@ class Add(kord: Kord, private val api: API) : RegisterCommand(kord, Command(
 			interaction.user.id.toString()
 		)
 		interaction.respondPublic {
-			embedMot(result, user)
+			embedMot(result, interaction.guildId)
 		}
 	}catch(e: APIException){
 		interaction.respondPublic {
 			when(e.code){
-				409 -> embedErreur("Mot existant", user, "Le mot **${interaction.command.strings["mot"]!!}** existe déjà dans la base", Color(255, 127, 0))
+				409 -> embedErreur("Mot existant", user, "Le mot **${interaction.command.strings["mot"]!!}** existe déjà dans la base", Color.warning)
 				else -> embedServerError(user)
 			}
 		}

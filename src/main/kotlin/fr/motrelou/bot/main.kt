@@ -12,8 +12,10 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
+lateinit var kord: Kord
+
 suspend fun main() {
-	val kord = Kord(System.getenv("TOKEN")!!)
+	kord = Kord(System.getenv("TOKEN")!!)
 
 	val guilds = mutableListOf<Guild>()
 	kord.guilds.collect{
@@ -22,9 +24,9 @@ suspend fun main() {
 
 	val list = mutableMapOf<Snowflake, Snowflake>()
 	val api = API()
-	val add = Add(kord, api)
-	val get = Get(kord, api)
-	val random = Random(kord, api)
+	val add = Add(api)
+	val get = Get(api)
+	val random = Random(api)
 
 	guilds.forEach {
 		add.register(it.id)

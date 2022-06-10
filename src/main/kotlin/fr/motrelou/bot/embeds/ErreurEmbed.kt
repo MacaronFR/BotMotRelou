@@ -4,6 +4,7 @@ import dev.kord.common.Color
 import dev.kord.core.entity.Member
 import dev.kord.rest.builder.message.create.MessageCreateBuilder
 import dev.kord.rest.builder.message.create.embed
+import fr.motrelou.bot.error
 import kotlinx.datetime.Clock
 
 fun MessageCreateBuilder.embedErreur(message: String, user: Member, description: String, color: Color){
@@ -22,4 +23,4 @@ fun MessageCreateBuilder.embedErreur(message: String, user: Member, description:
 	}
 }
 
-fun MessageCreateBuilder.embedServerError(user: Member) = embedErreur("Critique", user, "Erreur serveur", Color(255, 0, 0))
+fun MessageCreateBuilder.embedServerError(user: Member) = embedErreur("Critique", user, "Erreur serveur", Color.error)

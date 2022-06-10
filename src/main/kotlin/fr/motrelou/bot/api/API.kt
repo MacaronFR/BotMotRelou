@@ -12,7 +12,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class API {
-	companion object{
+	companion object {
 		val ktor = HttpClient(CIO)
 		val domain: String = System.getenv("BASE_URL")
 	}
@@ -23,45 +23,46 @@ class API {
 
 	suspend fun random(): MotApi = request("/mot/random")
 
-	suspend fun motAjout(mot: String, def: String, createur: String): MotApi = request("/mot", Json.encodeToString(AddMot(mot, createur, def)), HttpMethod.Post)
+	suspend fun motAjout(mot: String, def: String, createur: String): MotApi =
+		request("/mot", Json.encodeToString(AddMot(mot, createur, def)), HttpMethod.Post)
 
-	private suspend inline fun <reified T> request(path: String, method: HttpMethod = HttpMethod.Get): T{
+	private suspend inline fun <reified T> request(path: String, method: HttpMethod = HttpMethod.Get): T {
 		val data = requestText(path, method)
-		try{
+		try {
 			return Json.decodeFromString(data)
-		}catch (_: SerializationException){
+		} catch (_: SerializationException) {
 			throw APIException(data)
 		}
 	}
 
-	private suspend fun requestText(path: String, method: HttpMethod = HttpMethod.Get): String{
-		if(path[0] != '/'){
+	private suspend fun requestText(path: String, method: HttpMethod = HttpMethod.Get): String {
+		if (path[0] != '/') {
 			path.padStart(1, '/')
 		}
 		println(path)
-		val resp = ktor.request("$domain$path"){
+		val resp = ktor.request("$domain$path") {
 			this.method = method
 		}
 		return resp.bodyAsText()
 	}
 
-	private suspend inline fun <reified T> request(path: String, body: String, method: HttpMethod): T{
+	private suspend inline fun <reified T> request(path: String, body: String, method: HttpMethod): T {
 		val data = requestText(path, body, method)
-		try{
+		try {
 			return Json.decodeFromString(data)
-		}catch (_: SerializationException){
+		} catch (_: SerializationException) {
 			throw APIException(data)
 		}
 	}
 
-	private suspend fun requestText(path: String, body: String, method: HttpMethod): String{
-		if(path[0] != '/'){
+	private suspend fun requestText(path: String, body: String, method: HttpMethod): String {
+		if (path[0] != '/') {
 			path.padStart(1, '/')
 		}
-		val resp = ktor.request("$domain$path"){
+		val resp = ktor.request("$domain$path") {
 			this.method = method
 			setBody(body)
-			headers{
+			headers {
 				append(HttpHeaders.ContentType, ContentType.Application.Json)
 			}
 		}

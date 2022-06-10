@@ -24,8 +24,6 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions.jvmTarget = "17"
 	incremental = true
-	sourceCompatibility = "17"
-	targetCompatibility = "17"
 }
 
 application {

@@ -1,20 +1,22 @@
 package fr.motrelou.bot.commands
 
-import dev.kord.common.entity.Snowflake
-import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.respondPublic
 import fr.motrelou.bot.api.API
 import fr.motrelou.bot.embeds.embedMot
+import fr.motrelou.bot.embeds.embedServerError
+import fr.motrelou.bot.excpetions.APIException
 
-class Random(kord: Kord, private val api: API): RegisterCommand(kord,
+class Random(private val api: API): RegisterCommand(
 	Command(
 		"random",
 		"Récupérer un mot aléatoire"
 	),
 	{
 		interaction.respondPublic {
-			api.random().let{ mot ->
-				embedMot(mot, kord.getUser(Snowflake(mot.createur))!!.asMember(interaction.guildId))
+			try {
+				embedMot(api.random(), interaction.guildId)
+			}catch (e: APIException){
+				embedServerError(interaction.user)
 			}
 		}
 	}
