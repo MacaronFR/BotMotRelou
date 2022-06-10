@@ -1,18 +1,12 @@
 package fr.motrelou.bot
 
-import dev.kord.common.entity.ButtonStyle
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
-import dev.kord.core.behavior.edit
 import dev.kord.core.entity.Guild
-import dev.kord.core.event.interaction.ButtonInteractionCreateEvent
-import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import dev.kord.rest.builder.message.modify.actionRow
 import fr.motrelou.bot.api.API
 import fr.motrelou.bot.commands.*
-import fr.motrelou.bot.embeds.listEmbed
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
@@ -40,32 +34,6 @@ suspend fun main() {
 		get.register(it.id)
 		random.register(it.id)
 		getAll.register(it.id)
-	}
-
-	kord.on<ButtonInteractionCreateEvent> {
-		val resp = interaction.deferPublicResponse()
-		val page = if (interaction.component.customId!!.startsWith("next")) {
-			interaction.component.customId!!.substring(4).toLong() + 1
-		} else if(interaction.component.customId!!.startsWith("prev")){
-			interaction.component.customId!!.substring(4).toLong() - 1
-		}else{
-			return@on
-		}
-		val mots = api.mot(page)
-		if (mots.isNotEmpty()) {
-			interaction.message.edit {
-				listEmbed(mots, interaction.message.getGuild().id, page)
-			}
-		} else {
-			interaction.message.edit {
-				actionRow {
-					interactionButton(ButtonStyle.Primary, "prev${page-1}") {
-						label = "⬅️ Prev"
-					}
-				}
-			}
-		}
-		resp.delete()
 	}
 
 	kord.login {
