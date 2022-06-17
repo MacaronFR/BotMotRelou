@@ -28,12 +28,14 @@ suspend fun main() {
 	val get = Get(api)
 	val random = Random(api)
 	val getAll = GetAll(api)
+	val search = Search(api)
 
 	guilds.forEach {
 		add.register(it.id)
 		get.register(it.id)
 		random.register(it.id)
 		getAll.register(it.id)
+		search.register(it.id)
 	}
 
 	kord.login {
