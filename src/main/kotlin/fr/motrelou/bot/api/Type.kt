@@ -28,3 +28,9 @@ data class DefinitionApi(
 	val creation: LocalDateTime,
 	val index: Int
 )
+
+@Serializable
+data class AddDefinition(
+	val definition: String,
+	val createur: String
+)
