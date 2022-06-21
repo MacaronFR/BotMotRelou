@@ -16,7 +16,6 @@ import fr.motrelou.bot.commands.*
 //import io.ktor.client.engine.cio.*
 //import io.ktor.client.request.*
 //import io.ktor.http.*
-import kotlinx.coroutines.flow.firstOrNull
 
 lateinit var kord: Kord
 
@@ -54,9 +53,17 @@ suspend fun main() {
 	}
 
 	kord.on<MessageCreateEvent> {
-		message.mentionedUsers.firstOrNull { it.id == kord.selfId}?.let{
-			message.reply {
-				content = getKaamelottResponse()
+		message.mentionedUserIds.size.let {
+			if(message.mentionedUserIds.contains(kord.selfId) && message.author?.id != kord.selfId) {
+				if(message.content.matches(Regex("^(<@${kord.selfId}>[ ]?){3}$"))){
+					message.reply {
+						content = "https://tenor.com/view/noob-olydri-mmorpg-mmo-tenshirock-gif-17159361"
+					}
+				}else{
+					message.reply {
+						content = getKaamelottResponse()
+					}
+				}
 			}
 		}
 	}
