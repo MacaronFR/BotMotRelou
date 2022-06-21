@@ -2,7 +2,10 @@ package fr.motrelou.bot
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
+import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Guild
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import fr.motrelou.bot.api.API
@@ -11,6 +14,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.coroutines.flow.firstOrNull
 
 lateinit var kord: Kord
 
@@ -36,6 +40,14 @@ suspend fun main() {
 		random.register(it.id)
 		getAll.register(it.id)
 		getEmoji.register(it.id)
+	}
+
+	kord.on<MessageCreateEvent> {
+		message.mentionedUsers.firstOrNull { it.id == kord.selfId}?.let{
+			message.reply {
+				content = getKaamelottResponse()
+			}
+		}
 	}
 
 	kord.login {
