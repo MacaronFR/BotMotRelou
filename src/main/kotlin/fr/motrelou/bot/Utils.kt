@@ -20,10 +20,21 @@ val Color.Companion.error: Color get() = Color(219, 23, 2)
 fun LocalDateTime.toMessageFormat(style: DiscordTimestampStyle) = toInstant(ZoneOffset.UTC).toKotlinInstant().toMessageFormat(style)
 
 fun ButtonComponent.getNextPage(): Long? =
-	if(customId!!.startsWith("next")) {
-		customId!!.substring(4).toLong() + 1
-	} else if(customId!!.startsWith("prev")) {
-		customId!!.substring(4).toLong() - 1
+	if("next" in customId!!) {
+		customId!!.substring(customId!!.indexOf("next") + 4).toLong() + 1
+	} else if("prev" in customId!!) {
+		customId!!.substring(customId!!.indexOf("prev") + 4).toLong() - 1
 	}else {
 		null
 	}
+
+fun String?.getPrefix(): String =
+	this?.run {
+		if("next" in this) {
+			removeSuffix(substring(indexOf("next")))
+		} else if("prev" in this) {
+			removeSuffix(substring(indexOf("prev")))
+		}else{
+			""
+		}
+	} ?: ""
