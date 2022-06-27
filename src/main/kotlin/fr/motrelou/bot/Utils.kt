@@ -38,3 +38,14 @@ fun String?.getPrefix(): String =
 			""
 		}
 	} ?: ""
+
+fun ButtonComponent.getNextPageAndPrefix(): Pair<Long?, String> =
+	if("next" in customId!!) {
+		customId!!.substring(customId!!.indexOf("next") + 4)
+			.toLong() + 1 to customId!!.removeSuffix(customId!!.substring(customId!!.indexOf("next")))
+	} else if("prev" in customId!!) {
+		customId!!.substring(customId!!.indexOf("prev") + 4)
+			.toLong() - 1 to customId!!.removeSuffix(customId!!.substring(customId!!.indexOf("prev")))
+	} else {
+		null to ""
+	}
