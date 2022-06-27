@@ -40,6 +40,7 @@ suspend fun main() {
 	val get = Get(api)
 	val random = Random(api)
 	val getAll = GetAll(api)
+	val search = Search(api)
 	val getEmoji = GetEmoji()
 	val addDef = AddDef(api)
 
@@ -48,6 +49,7 @@ suspend fun main() {
 		get.register(it.id)
 		random.register(it.id)
 		getAll.register(it.id)
+		search.register(it.id)
 		getEmoji.register(it.id)
 		addDef.register(it.id)
 	}

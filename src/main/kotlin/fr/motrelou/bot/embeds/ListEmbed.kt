@@ -11,7 +11,7 @@ import fr.motrelou.bot.success
 import fr.motrelou.bot.toMessageFormat
 import kotlinx.datetime.Clock
 
-suspend fun MessageModifyBuilder.listEmbed(mots: List<MotApi>, guild: Snowflake, page: Long) {
+suspend fun MessageModifyBuilder.listEmbed(mots: List<MotApi>, guild: Snowflake, page: Long, prefix: String = "") {
 	embed {
 		author {
 			name = "Bot Mot Relou"
@@ -31,11 +31,11 @@ suspend fun MessageModifyBuilder.listEmbed(mots: List<MotApi>, guild: Snowflake,
 	}
 	actionRow {
 		if(page > 0) {
-			interactionButton(ButtonStyle.Primary, "prev$page") {
+			interactionButton(ButtonStyle.Primary, "${prefix}prev$page") {
 				label = "⬅️ Prev"
 			}
 		}
-		interactionButton(ButtonStyle.Primary, "next$page") {
+		interactionButton(ButtonStyle.Primary, "${prefix}next$page") {
 			label = "Next ➡️"
 		}
 	}

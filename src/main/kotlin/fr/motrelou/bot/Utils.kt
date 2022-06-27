@@ -6,6 +6,7 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.common.toMessageFormat
 import dev.kord.core.Kord
 import dev.kord.core.entity.Member
+import dev.kord.core.entity.component.ButtonComponent
 import kotlinx.datetime.toKotlinInstant
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -29,3 +30,34 @@ fun getKaamelottResponse(): String{
 		else -> ""
 	}
 }
+
+fun ButtonComponent.getNextPage(): Long? =
+	if("next" in customId!!) {
+		customId!!.substring(customId!!.indexOf("next") + 4).toLong() + 1
+	} else if("prev" in customId!!) {
+		customId!!.substring(customId!!.indexOf("prev") + 4).toLong() - 1
+	}else {
+		null
+	}
+
+fun String?.getPrefix(): String =
+	this?.run {
+		if("next" in this) {
+			removeSuffix(substring(indexOf("next")))
+		} else if("prev" in this) {
+			removeSuffix(substring(indexOf("prev")))
+		}else{
+			""
+		}
+	} ?: ""
+
+fun ButtonComponent.getNextPageAndPrefix(): Pair<Long?, String> =
+	if("next" in customId!!) {
+		customId!!.substring(customId!!.indexOf("next") + 4)
+			.toLong() + 1 to customId!!.removeSuffix(customId!!.substring(customId!!.indexOf("next")))
+	} else if("prev" in customId!!) {
+		customId!!.substring(customId!!.indexOf("prev") + 4)
+			.toLong() - 1 to customId!!.removeSuffix(customId!!.substring(customId!!.indexOf("prev")))
+	} else {
+		null to ""
+	}

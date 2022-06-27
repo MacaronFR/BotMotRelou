@@ -28,6 +28,8 @@ class API {
 
 	suspend fun definitionAjout(mot: String, def: String, createur: String): MotApi = request("/mot/$mot/definition", Json.encodeToString(AddDefinition(def, createur)), HttpMethod.Post)
 
+	suspend fun search(search: String, page: Long): List<MotApi> = request("/mot?recherche=$search&page=$page")
+
 	private suspend inline fun <reified T> request(path: String, method: HttpMethod = HttpMethod.Get): T {
 		val data = requestText(path, method)
 		try {
