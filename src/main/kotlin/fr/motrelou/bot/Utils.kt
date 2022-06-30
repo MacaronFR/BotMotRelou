@@ -61,3 +61,12 @@ fun ButtonComponent.getNextPageAndPrefix(): Pair<Long?, String> =
 	} else {
 		null to ""
 	}
+
+fun println(vararg messages: Any?){
+	messages.forEachIndexed { index, any ->
+		print(any)
+		if(index < messages.size - 1) {
+			println(", ")
+		}
+	}
+}

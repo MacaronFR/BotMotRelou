@@ -30,6 +30,10 @@ class API {
 
 	suspend fun search(search: String, page: Long): List<MotApi> = request("/mot?recherche=$search&page=$page")
 
+	suspend fun delete(mot: String){
+		requestText("/mot/$mot", HttpMethod.Delete)
+	}
+
 	private suspend inline fun <reified T> request(path: String, method: HttpMethod = HttpMethod.Get): T {
 		val data = requestText(path, method)
 		try {

@@ -43,6 +43,7 @@ suspend fun main() {
 	val search = Search(api)
 	val getEmoji = GetEmoji()
 	val addDef = AddDef(api)
+	val delete = Delete(api)
 
 	guilds.forEach {
 		add.register(it.id)
@@ -52,6 +53,7 @@ suspend fun main() {
 		search.register(it.id)
 		getEmoji.register(it.id)
 		addDef.register(it.id)
+		delete.register(it.id)
 	}
 
 	kord.on<MessageCreateEvent> {

@@ -19,7 +19,6 @@ class AddDef(val api: API): RegisterCommand(
 		)
 	),
 	{
-		println("OLA")
 		val mot = interaction.command.strings["mot"]!!
 		val def = interaction.command.strings["definition"]!!
 		interaction.respondPublic {
