@@ -39,7 +39,7 @@ class Delete(val api: API): RegisterCommand(
 				voteButton(mot)
 			}
 			launch {
-				delay(20000L)
+				delay(43200000L)
 				val message = interaction.getOriginalInteractionResponseOrNull() ?: run{
 					kord.getUser(Snowflake(259353995754078209))!!.getDmChannel().createMessage("Erreur lors de la récupération des résultats du vote pour supprimer le mot $mot dans la guilde ${interaction.getGuild().name} par l'utilisateur ${interaction.user.displayName}")
 					return@launch
