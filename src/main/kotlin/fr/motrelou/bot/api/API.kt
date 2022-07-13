@@ -30,7 +30,7 @@ class API {
 
 	suspend fun search(search: String, page: Long): List<MotApi> = request("/mot?recherche=$search&page=$page")
 
-	suspend fun delete(mot: String){
+	suspend fun delete(mot: String) {
 		requestText("/mot/$mot", HttpMethod.Delete)
 	}
 
@@ -38,13 +38,13 @@ class API {
 		val data = requestText(path, method)
 		try {
 			return Json.decodeFromString(data)
-		} catch (_: SerializationException) {
+		} catch(_: SerializationException) {
 			throw APIException(data)
 		}
 	}
 
 	private suspend fun requestText(path: String, method: HttpMethod = HttpMethod.Get): String {
-		if (path[0] != '/') {
+		if(path[0] != '/') {
 			path.padStart(1, '/')
 		}
 		val resp = ktor.request("$domain$path") {
@@ -57,13 +57,13 @@ class API {
 		val data = requestText(path, body, method)
 		try {
 			return Json.decodeFromString(data)
-		} catch (_: SerializationException) {
+		} catch(_: SerializationException) {
 			throw APIException(data)
 		}
 	}
 
 	private suspend fun requestText(path: String, body: String, method: HttpMethod): String {
-		if (path[0] != '/') {
+		if(path[0] != '/') {
 			path.padStart(1, '/')
 		}
 		val resp = ktor.request("$domain$path") {
