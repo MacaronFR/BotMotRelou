@@ -2,7 +2,6 @@ package fr.motrelou.bot
 
 import dev.kord.cache.map.MapLikeCollection
 import dev.kord.cache.map.internal.MapEntryCache
-//import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Guild
@@ -12,10 +11,6 @@ import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import fr.motrelou.bot.api.API
 import fr.motrelou.bot.commands.*
-//import io.ktor.client.*
-//import io.ktor.client.engine.cio.*
-//import io.ktor.client.request.*
-//import io.ktor.http.*
 
 lateinit var kord: Kord
 

@@ -20,15 +20,13 @@ val Color.Companion.error: Color get() = Color(219, 23, 2)
 
 fun LocalDateTime.toMessageFormat(style: DiscordTimestampStyle) = toInstant(ZoneOffset.UTC).toKotlinInstant().toMessageFormat(style)
 
-fun getKaamelottResponse(): String{
-	return when(LocalTime.now().hour){
-		in 0..6 -> "https://tenor.com/view/kaamelott-marre-gif-7638617"
-		in 7..10 -> "https://tenor.com/view/leodagan-merde-kaamelott-conversation-gif-11988507"
-		in 11..16 -> "https://tenor.com/view/qu-est-ce-dire-que-ceci-burgonde-astier-kaamelott-what-does-it-mean-that-this-gif-15026456"
-		in 18..22 -> "https://tenor.com/view/kaamelott-arthur-terme-%C3%A9l%C3%A9gant-gif-18228781"
-		23 -> "https://tenor.com/view/kaamelott-marre-gif-7638617"
-		else -> ""
-	}
+fun getKaamelottResponse(): String = when(LocalTime.now().hour){
+	in 0..6 -> "https://tenor.com/view/kaamelott-marre-gif-7638617"
+	in 7..10 -> "https://tenor.com/view/leodagan-merde-kaamelott-conversation-gif-11988507"
+	in 11..16 -> "https://tenor.com/view/qu-est-ce-dire-que-ceci-burgonde-astier-kaamelott-what-does-it-mean-that-this-gif-15026456"
+	in 18..22 -> "https://tenor.com/view/kaamelott-arthur-terme-%C3%A9l%C3%A9gant-gif-18228781"
+	23 -> "https://tenor.com/view/kaamelott-marre-gif-7638617"
+	else -> ""
 }
 
 fun ButtonComponent.getNextPage(): Long? =
