@@ -20,6 +20,8 @@ import fr.motrelou.bot.embeds.voteEmbed
 import fr.motrelou.bot.excpetions.APIException
 import fr.motrelou.bot.kord
 import fr.motrelou.bot.warning
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
@@ -27,6 +29,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
 
+@OptIn(DelicateCoroutinesApi::class)
 class Delete(val api: API): RegisterCommand(
 	Command("delete", "Supprimer un mot", listOf(Parameter(ParameterType.String, "mot", "Le mot à supprimer", true))),
 	{
@@ -38,7 +41,7 @@ class Delete(val api: API): RegisterCommand(
 				voteEmbed(mot, 0, 0, end, "Aucun")
 				voteButton(mot)
 			}
-			launch {
+			GlobalScope.launch {
 				delay(43200000L)
 				val message = interaction.getOriginalInteractionResponseOrNull() ?: run{
 					kord.getUser(Snowflake(259353995754078209))!!.getDmChannel().createMessage("Erreur lors de la récupération des résultats du vote pour supprimer le mot $mot dans la guilde ${interaction.getGuild().name} par l'utilisateur ${interaction.user.displayName}")
